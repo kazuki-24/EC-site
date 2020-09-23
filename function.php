@@ -40,7 +40,7 @@ function validation_2() {
       echo $error[0];
     }
     if(empty($_POST['image'])) {
-      $error[1] = "商品画像を挿入してください";
+      $error[1] = "画像を選択してください";
       echo $error[1];
     }
     if(empty($_POST['introduction'])) {

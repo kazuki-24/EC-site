@@ -26,6 +26,7 @@ if(!isset($_SESSION)) {
       <h3>商品名</h3>
       <?php echo (htmlspecialchars($_SESSION["p_name"], ENT_QUOTES, "UTF-8")); ?><br>
       <h3>商品画像</h3>
+      <img src="img/manta.jpg">
       <?php echo (htmlspecialchars($_SESSION["image"], ENT_QUOTES, "UTF-8")); ?><br>
       <h3>紹介文</h3>
       <?php echo (htmlspecialchars($_SESSION["introduction"], ENT_QUOTES, "UTF-8")); ?><br>

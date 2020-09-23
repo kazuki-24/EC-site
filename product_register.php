@@ -10,6 +10,14 @@ var_dump($error);
 
 // require_once "pdo_contact.php";
 // $db = connection_2();
+if(isset($_POST["send"])) {
+  $tempfile = $_FILES['image']['tmp_name'];
+  //アップロード画像の移動先
+  $filemove = '/Applications/XAMPP/xamppfiles/htdocs/EC-site/img/' . $_FILES['image']['name'];
+  // var_dump($_FILES);exit;
+  //move_uploaded_file関数を使って、アップロードした画像を指定した場所に移動させる
+  move_uploaded_file($tempfile , $filemove );
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,15 +55,6 @@ var_dump($error);
     }
   ?>
   </span>
-  <h3>商品画像:</h3>
-  <input type="text" name="image" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['image'],ENT_QUOTES));} ?>" />
-  <span style="color:red;">
-  <?php
-    if(!empty($error[1])) {
-      echo $error[1];
-    }
-  ?>
-  </span>
   <h3>紹介文:</h3>
   <input type="text" name="introduction" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['introduction'],ENT_QUOTES));} ?>" />
   <span style="color:red;">
@@ -74,9 +73,20 @@ var_dump($error);
     }
   ?>
   </span>
+  <form action="" method="post" enctype="multipart/form-data">
+  <h3>商品画像:</h3>
+    <input type="file" name="image"><br>
+    <!-- <input type="submit" value="画像アップロード" name="send"> -->
+  <span style="color:red;">
+  <?php
+    if(!empty($error[1])) {
+      echo $error[1];
+    }
+  ?>
+  </span>
   <br>
   <br>
   <input type="submit" name="sent" value="登録">
-</form>
-</body>
-</html>
+  </form>
+  </body>
+  </html>
