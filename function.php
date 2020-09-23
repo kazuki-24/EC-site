@@ -30,6 +30,39 @@ function validation() {
   return $error;
 }
 
+function validation_2() {
+
+  $error = array();
+
+  if(!empty($_POST)){
+    if(empty($_POST['p_name'])) {
+      $error[0] = "商品名を入力してください";
+      echo $error[0];
+    }
+    if(empty($_POST['image'])) {
+      $error[1] = "商品画像を挿入してください";
+      echo $error[1];
+    }
+    if(empty($_POST['introduction'])) {
+      $error[2] = "紹介文を入力してください";
+      echo $error[2];
+    }
+    if(empty($_POST['price'])) {
+      $error[3] = "価格を入力してください";
+      echo $error[3];
+    }
+    if(empty($error)) {
+      $_SESSION = $_POST;
+      header("Location: product_confirm.php");
+      exit();
+    }
+  }
+  return $error;
+}
+
+
+
+
 
 // function validation_2() {
 

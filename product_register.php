@@ -4,7 +4,7 @@ session_start();
 var_dump($_POST);
 
 require_once "function.php";
-$error = validation();
+$error = validation_2();
 var_dump($error);
 // // unlogined_session();
 
@@ -36,10 +36,10 @@ var_dump($error);
 </style>
 <body align="center">
 <form action="" method="POST">
-  <h1>管理者登録</h1>
+  <h1>商品登録</h1>
   <br>
-  <h3>氏名:</h3>
-  <input type="text" name="name" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['name'],ENT_QUOTES));} ?>" />
+  <h3>商品名:</h3>
+  <input type="text" name="p_name" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['p_name'],ENT_QUOTES));} ?>" />
   <span style="color:red;">
   <?php
     if(!empty($error[0])) {
@@ -47,8 +47,8 @@ var_dump($error);
     }
   ?>
   </span>
-  <h3>住所:</h3>
-  <input type="text" name="address" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['address'],ENT_QUOTES));} ?>" />
+  <h3>商品画像:</h3>
+  <input type="text" name="image" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['image'],ENT_QUOTES));} ?>" />
   <span style="color:red;">
   <?php
     if(!empty($error[1])) {
@@ -56,8 +56,8 @@ var_dump($error);
     }
   ?>
   </span>
-  <h3>メールアドレス:</h3>
-  <input type="text" name="email" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['email'],ENT_QUOTES));} ?>" />
+  <h3>紹介文:</h3>
+  <input type="text" name="introduction" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['introduction'],ENT_QUOTES));} ?>" />
   <span style="color:red;">
   <?php
     if(!empty($error[2])) {
@@ -65,8 +65,8 @@ var_dump($error);
     }
   ?>
   </span>
-  <h3>パスワード:</h3>
-  <input type="text" name="password" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['password'],ENT_QUOTES));} ?>" />
+  <h3>価格:</h3>
+  <input type="text" name="price" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['price'],ENT_QUOTES));} ?>" />
   <span style="color:red;">
   <?php
     if(!empty($error[3])) {
@@ -76,7 +76,6 @@ var_dump($error);
   </span>
   <br>
   <br>
-  <input type="button" onclick="location.href='login.php';" value="ログインページへ">
   <input type="submit" name="sent" value="登録">
 </form>
 </body>
