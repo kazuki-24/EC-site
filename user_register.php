@@ -65,8 +65,6 @@ var_dump($error);
     }
   ?>
   </span>
-  <br>
-  <br>
   <h3>パスワード:</h3>
   <input type="text" name="password" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['password'],ENT_QUOTES));} ?>" />
   <span style="color:red;">
