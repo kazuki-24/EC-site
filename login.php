@@ -28,6 +28,7 @@ if (isset($_POST['login'])) {
     // var_dump($result[0]['id']);
     // exit;
     $_SESSION['id'] = $result[0]['id'];
+    $_SESSION['name'] = $result[0]['name'];
     // 以下DB認証
     // emailとpasswordどちらも入力されている場合
     if(!empty($_POST["email"]) && !empty($_POST["password"])) {
@@ -81,7 +82,6 @@ if (isset($_POST['login'])) {
 <form action="" method="POST" align="center">
   <h1>ログインページ</h1>
   <br>
-  <!-- <p><?php echo $_SESSION['name']; ?>さん</p> -->
   <h3>Email:</h3>
   <input type="text" name="email" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['email'],ENT_QUOTES));} ?>" />
   <span style="color:red;">

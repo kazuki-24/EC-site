@@ -31,7 +31,7 @@ function connection_2() {
   // $_POST['password'] = $password;
 
   // 1. 接続に必要な3点セットを用意
-  $dsn = "mysql:dbname=test;localhost;charaset=utf8";
+  $dsn = "mysql:dbname=EC-site;localhost;charaset=utf8";
   $user = "root";
   $password = "";
 
@@ -68,7 +68,7 @@ function connection_2() {
 
 function connection_3() {
   // 1. 接続に必要な3点セットを用意
-  $dsn = "mysql:dbname=test;localhost;charaset=utf8";
+  $dsn = "mysql:dbname=EC-site;localhost;charaset=utf8";
   $user = "root";
   $password = "";
 
@@ -141,7 +141,7 @@ function connection_3() {
 
 function connection_4() {
   // 1. 接続に必要な3点セットを用意
-  $dsn = "mysql:dbname=test;localhost;charaset=utf8";
+  $dsn = "mysql:dbname=EC-site;localhost;charaset=utf8";
   $user = "root";
   $password = "";
 
