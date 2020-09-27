@@ -1,1 +1,1 @@
-Hello World
+Hello World, product_detail

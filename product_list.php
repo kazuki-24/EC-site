@@ -2,8 +2,25 @@
 
 session_start();
 
-var_dump($_SESSION['name']);
-var_dump($_SESSION['id']);
+// var_dump($_SESSION);
+// var_dump($_SESSION['id']);
+
+// $fname = file_upload( $_FILES, 'image' );
+
+// $dsn = "mysql:host=localhost; dbname=xxx; charset=utf8";
+// $username = "xxx";
+// $password = "xxx";
+// $id = rand(1, 5);
+// try {
+//     $dbh = new PDO($dsn, $username, $password);
+// } catch (PDOException $e) {
+//     echo $e->getMessage();
+// }
+//     $sql = "SELECT * FROM images WHERE id = :id";
+//     $stmt = $dbh->prepare($sql);
+//     $stmt->bindValue(':id', $id);
+//     $stmt->execute();
+//     $image = $stmt->fetch();
 
 // $_SESSION["name"] = $_POST["name"]
 
@@ -24,6 +41,10 @@ var_dump($_SESSION['id']);
 //   header("Location: admin_register.php");
 //   exit();
 // }
+// $filemove = $_SESSION['image'];
+// $img = $filemove;
+// var_dump($filemove);
+// exit;
 
 ?>
 
@@ -43,7 +64,7 @@ try{
 	echo "接続成功<br>";
 
   // SQL文を作成
-  $sql = 'SELECT * FROM products';
+  $sql = 'SELECT * FROM products' ;
   // クエリ実行（データを取得）
   $row = $db -> query($sql);
   // 上記SQLを実行すると$rowに取得したデータが格納される。
@@ -51,15 +72,13 @@ try{
 
   $stmh = $db->prepare($sql);
   $stmh->execute();
+  $image = $stmh->fetch();
+
 	// //レコード件数取得
   $row_count = $row->rowCount();
   var_dump($row);
-  // 取得したデータを出力
-  // foreach( $row as $r ) {
-  //   // var_dump($r);
-  //   echo "$r[1]<br>";
-  //   echo "$r[2]<br>";
-  // }
+
+
   }catch (PDOException $e){
     echo "接続失敗:" .$e->getMessage(). "\n";
     exit();
@@ -75,6 +94,10 @@ try{
   if (isset($_SESSION['id'])) {//ログインしているとき
     $userName = $_SESSION['name'];
   }
+
+  // $dir_name = dir("img");
+  // $file_url = "";
+
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +127,7 @@ try{
     ?>
     <tr height="50">
       <th ><?=htmlspecialchars($row['p_name'])?></th>
-      <th ><?=htmlspecialchars($row['image'])?></th>
+      <th ><img src="img/<?php echo $row['image']; ?>" width="100" height="100"></th>
       <th ><?=htmlspecialchars($row['introduction'])?></th>
       <th ><?=htmlspecialchars($row['price'])?></th>
       <td>
