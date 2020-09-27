@@ -39,23 +39,23 @@ function validation_2() {
       $error[0] = "商品名を入力してください";
       echo $error[0];
     }
-    if(empty($_POST['image'])) {
-      $error[1] = "画像を選択してください";
+    if(empty($_POST['introduction'])) {
+      $error[1] = "紹介文を入力してください";
       echo $error[1];
     }
-    if(empty($_POST['introduction'])) {
-      $error[2] = "紹介文を入力してください";
+    if(empty($_POST['price'])) {
+      $error[2] = "価格を入力してください";
       echo $error[2];
     }
-    if(empty($_POST['price'])) {
-      $error[3] = "価格を入力してください";
+    if(empty($_FILES['image'])) {
+      $error[3] = "画像を選択してください";
       echo $error[3];
     }
-    if(empty($error)) {
-      $_SESSION = $_POST;
-      header("Location: product_confirm.php");
-      exit();
-    }
+    // if(empty($error)) {
+    //   $_SESSION = $_POST;
+    //   header("Location: product_confirm.php");
+    //   exit();
+    // }
   }
   return $error;
 }

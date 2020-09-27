@@ -1,23 +1,55 @@
 <?php
 session_start();
 
-var_dump($_POST);
-
 require_once "function.php";
 $error = validation_2();
-var_dump($error);
-// // unlogined_session();
 
-// require_once "pdo_contact.php";
-// $db = connection_2();
 if(isset($_POST["send"])) {
+  // var_dump($_POST);
+  // exit;
+  // var_dump($_FILES['image']['name']);
+  // exit;
+  // var_dump($_FILES);exit;
   $tempfile = $_FILES['image']['tmp_name'];
   //アップロード画像の移動先
   $filemove = '/Applications/XAMPP/xamppfiles/htdocs/EC-site/img/' . $_FILES['image']['name'];
   // var_dump($_FILES);exit;
+  // var_dump($filemove);
   //move_uploaded_file関数を使って、アップロードした画像を指定した場所に移動させる
   move_uploaded_file($tempfile , $filemove );
+
+  // echo '<img src="img.php">';
+  // exit;
+
+  if(empty($error)) {
+    $_SESSION = $_POST;
+    $_SESSION['image'] = $_FILES['image']['name'];
+    header("Location: product_confirm.php");
+    exit();
+  }
 }
+
+
+// var_dump($_POST);
+
+// require_once "function.php";
+// $error = validation_2();
+
+// var_dump($error);
+// // unlogined_session();
+
+// require_once "pdo_contact.php";
+// $db = connection_2();
+// if(isset($_POST["send"])) {
+//   // var_dump($_FILES);exit;
+//   $tempfile = $_FILES['image']['tmp_name'];
+//   //アップロード画像の移動先
+//   $filemove = '/Applications/XAMPP/xamppfiles/htdocs/EC-site/img/' . $_FILES['image']['name'];
+//   // var_dump($_FILES);exit;
+//   //move_uploaded_file関数を使って、アップロードした画像を指定した場所に移動させる
+//   move_uploaded_file($tempfile , $filemove );
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +75,8 @@ if(isset($_POST["send"])) {
   }
 </style>
 <body align="center">
-<form action="" method="POST">
+<!-- <form action="" method="POST"> -->
+<form action="" method="post" enctype="multipart/form-data">
   <h1>商品登録</h1>
   <br>
   <h3>商品名:</h3>
@@ -59,8 +92,8 @@ if(isset($_POST["send"])) {
   <input type="text" name="introduction" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['introduction'],ENT_QUOTES));} ?>" />
   <span style="color:red;">
   <?php
-    if(!empty($error[2])) {
-      echo $error[2];
+    if(!empty($error[1])) {
+      echo $error[1];
     }
   ?>
   </span>
@@ -68,25 +101,23 @@ if(isset($_POST["send"])) {
   <input type="text" name="price" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['price'],ENT_QUOTES));} ?>" />
   <span style="color:red;">
   <?php
+    if(!empty($error[2])) {
+      echo $error[2];
+    }
+  ?>
+  </span>
+  <h3>商品画像:</h3>
+    <input type="file" name="image" accept="image/*" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['image'],ENT_QUOTES));} ?>"><br>
+  <span style="color:red;">
+  <?php
     if(!empty($error[3])) {
       echo $error[3];
     }
   ?>
   </span>
-  <form action="" method="post" enctype="multipart/form-data">
-  <h3>商品画像:</h3>
-    <input type="file" name="image"><br>
-    <!-- <input type="submit" value="画像アップロード" name="send"> -->
-  <span style="color:red;">
-  <?php
-    if(!empty($error[1])) {
-      echo $error[1];
-    }
-  ?>
-  </span>
   <br>
   <br>
-  <input type="submit" name="sent" value="登録">
+  <input type="submit" name="send" value="登録">
   </form>
   </body>
   </html>
