@@ -5,9 +5,6 @@ session_start();
 // require_once "function.php";
 // unlogined_session();
 
-// var_dump($_POST);
-// var_dump($_SESSION);
-
 if(!isset($_SESSION)) {
   header("Location: product_register.php");
   exit();
@@ -18,16 +15,6 @@ if(!isset($_SESSION)) {
 //   $price = $_SESSION["price"];
 }
 
-// if(isset($_POST["send"])) {
-//   // var_dump($_FILES);
-//   // exit;
-//   $tempfile = $_FILES['image']['tmp_name'];
-//   //アップロード画像の移動先
-//   $filemove = '/Applications/XAMPP/xamppfiles/htdocs/EC-site/img/' . $_FILES['image']['name'];
-//   // var_dump($_FILES);exit;
-//   //move_uploaded_file関数を使って、アップロードした画像を指定した場所に移動させる
-//   move_uploaded_file($tempfile , $filemove );
-// }
 ?>
 
 <!DOCTYPE html>
@@ -46,8 +33,6 @@ if(!isset($_SESSION)) {
       <br>
       <input type="button" onclick="history.back();" value="戻る">
       <input type="submit" name="send" value="送信">
-    </formß
+    </form>
   </body>
 </html>
-
-<!-- product_complete.php -->

@@ -1,11 +1,12 @@
 <?php
+
 session_start();
 
 // var_dump($_POST);
+// require_once "function.php";
+
 var_dump($_SESSION);
 
-require_once "function.php";
-unlogined_session();
 ?>
 
 <?php
@@ -24,7 +25,7 @@ try{
 	echo "接続成功<br>";
 
   // SQL文を作成
-  $sql = 'SELECT * FROM products' ;
+  $sql = 'SELECT * FROM users' ;
   // クエリ実行（データを取得）
   $row = $db -> query($sql);
   // 上記SQLを実行すると$rowに取得したデータが格納される。
@@ -36,7 +37,7 @@ try{
 
 	// //レコード件数取得
   $row_count = $row->rowCount();
-  var_dump($row);
+
 
 
   }catch (PDOException $e){
@@ -82,41 +83,38 @@ try{
   <body align="center">
   <br>
   <br>
-  <h3>ユーザー名</h3>
-  <?php echo $userName; ?> さん
   <form action="" method="post"><br>
-    <input type="submit" name="logout" value="ログアウト">
-    <input type="button" name="confirm" value="カートの中身を確認する" onclick="location.href='cart.php';"><br><br><br>
-
-
-    <h1>登録商品一覧</h1>
+    <h1>ユーザー一覧</h1>
     <table border="2" align="center" height="70">
 
     レコード件数：<?php echo $row_count; ?><br>
     <tr bgcolor="yellow">
-      <th width="170" >商品名</th>
-      <th width="200">画像</th>
-      <th width="280">紹介文</th>
-      <th width="170">価格</th>
+      <th width="170" >名前</th>
+      <th width="200">住所</th>
+      <th width="280">メールアドレス</th>
+      <th width="170">パスワード</th>
     </tr>
     <?php
     while($row = $stmh->fetch(PDO::FETCH_ASSOC)){
     ?>
     <tr height="50">
-      <th ><?=htmlspecialchars($row['p_name'])?></th>
-      <th ><img src="img/<?php echo $row['image']; ?>" width="100" height="100"></th>
-      <th ><?=htmlspecialchars($row['introduction'])?></th>
-      <th ><?=htmlspecialchars($row['price'])?></th>
-      <td>
-        <form action="" method="post">
-        <input type="submit" name="detail" value="詳細">
-        <input type="hidden" name="id" value="<?=$row['id']?>">
-        <input type="hidden" name="p_name" value="<?=$row['p_name']?>">
-        <input type="hidden" name="image" value="<?=$row['image']?>">
-        <input type="hidden" name="introduction" value="<?=$row['introduction']?>">
-        <input type="hidden" name="price" value="<?=$row['price']?>">
-        </form>
-      </td>
+        <th><?=htmlspecialchars($row['name'])?></th>
+        <th><?=htmlspecialchars($row['address'])?></th>
+        <th><?=htmlspecialchars($row['email'])?></th>
+        <th><?=htmlspecialchars($row['password'])?></th>
+        <td>
+          <form action="delete_complete.php" method="post">
+          <input type="submit" value="削除" onclick="return confirm('削除してよろしいですか？')">
+          <input type="hidden" name="id" value="<?=$row['id']?>">
+          </form>
+        </td>
+        <td>
+          <form action="edit.php" method="post">
+          <input type="submit" value="修正">
+          <input type="hidden" name="id" value="<?=$row['id']?>">
+          <input type="hidden" name="name" value="<?=$row['name']?>">
+          <input type="hidden" name="email" value="<?=$row['email']?>">
+          </form>
     </tr>
   <?php
     }
@@ -127,7 +125,7 @@ try{
         <br><br>
         <input type="submit" name="logout" value="ログアウト">
         <input type="button" onclick="location.href='product_register.php';" value="商品登録画面へ">
-        <input type="button" onclick="location.href='user_list.php';" value="ユーザー一覧画面へ">
+        <input type="button" onclick="location.href='product_list.php';" value="商品一覧画面へ">
       </form>
   </body>
 </html>

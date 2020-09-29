@@ -35,6 +35,6 @@ $stmt->execute();
   <body align="center">
     <h1>ユーザー登録(完了)</h1>
     <p>登録が完了しました！</p><br>
-    <input type="button" onclick="location.href='user_register.php';" value="ユーザー一覧へ">
+    <input type="button" onclick="location.href='user_list.php';" value="ユーザー一覧へ">
   </body>
 </html>

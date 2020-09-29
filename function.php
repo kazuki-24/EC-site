@@ -37,19 +37,19 @@ function validation_2() {
   if(!empty($_POST)){
     if(empty($_POST['p_name'])) {
       $error[0] = "商品名を入力してください";
-      echo $error[0];
+      // echo $error[0];
     }
     if(empty($_POST['introduction'])) {
       $error[1] = "紹介文を入力してください";
-      echo $error[1];
+      // echo $error[1];
     }
     if(empty($_POST['price'])) {
       $error[2] = "価格を入力してください";
-      echo $error[2];
+      // echo $error[2];
     }
     if(empty($_FILES['image'])) {
       $error[3] = "画像を選択してください";
-      echo $error[3];
+      // echo $error[3];
     }
     // if(empty($error)) {
     //   $_SESSION = $_POST;
@@ -63,32 +63,6 @@ function validation_2() {
 
 
 
-
-// function validation_2() {
-
-//   $error = array();
-
-//   if(!empty($_POST)){
-//     if(empty($_POST['name'])) {
-//       $error[0] = "名前を入力してください";
-//       echo $error[0];
-//     }
-//     if(empty($_POST['email'])) {
-//       $error[1] = "メールアドレスを入力してください";
-//       echo $error[1];
-//     }
-//     if(empty($_POST['password'])) {
-//       $error[2] = "パスワードを入力してください";
-//       echo $error[2];
-//     }
-//     if(empty($error)) {
-//       $_SESSION = $_POST;
-//       header("Location: list.php");
-//       exit();
-//     }
-//   }
-//   return $error;
-// }
 
 
 // function validation_3() {

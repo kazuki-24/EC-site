@@ -35,6 +35,6 @@ $stmt->execute();
   <body align="center">
     <h1>商品登録(完了)</h1>
     <p>登録が完了しました！</p><br>
-    <input type="button" onclick="location.href='product_register.php';" value="商品一覧へ">
+    <input type="button" onclick="location.href='product_list.php';" value="商品一覧へ">
   </body>
 </html>
