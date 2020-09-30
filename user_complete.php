@@ -29,7 +29,6 @@ $stmt->bindParam(':password', $password, PDO::PARAM_STR);
 $stmt->execute();
 
 
-
 ?>
 
 <!DOCTYPE html>

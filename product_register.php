@@ -3,8 +3,8 @@ session_start();
 
 var_dump($_SESSION);
 // var_dump($_SESSION['id']);
-var_dump($_POST);
-var_dump($_FILES);
+// var_dump($_POST);
+// var_dump($_FILES);
 // exit;
 
 require_once "function.php";
@@ -28,7 +28,9 @@ if(isset($_POST["send"])) {
 
   // if(empty($error)) {
   if(empty($error) && $_FILES['image']['name'] !== "") {
-    $_SESSION = $_POST;
+    $_SESSION['p_name'] = $_POST['p_name'];
+    $_SESSION['introduction'] = $_POST['introduction'];
+    $_SESSION['price'] = $_POST['price'];
     $_SESSION['image'] = $_FILES['image']['name'];
     header("Location: product_confirm.php");
     exit();
@@ -105,8 +107,6 @@ if(isset($_POST["send"])) {
   <br>
   <input type="button" onclick="history.back();" value="戻る">
   <input type="submit" name="send" value="登録">
-  <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
-
   </form>
   </body>
   </html>

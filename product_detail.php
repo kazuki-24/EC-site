@@ -2,9 +2,10 @@ product_detail
 
 <?php
 
-// var_dump($_POST);
+var_dump($_POST);
 // exit;
 session_start();
+// var_dump($_POST);
 // var_dump($_SESSION);
 // exit;
 require_once "function.php";
@@ -58,21 +59,21 @@ try{
   //   $userName = $_SESSION['name'];
   // }
 
-  if(isset($_POST["cartin"])) {
-    // var_dump($_POST);
-    // exit;
-    if(isset($_POST)) {
-      // var_dump($_POST);
-      // exit;
-      $_SESSION = $_POST;
-      var_dump($_SESSION);
-      // exit;
-      header("Location: product_list.php");
-      exit();
-    }else{
-      header("Location: product_detail.php");
-    }
-  }
+  // if(isset($_POST["cartin"])) {
+  //   // var_dump($_POST);
+  //   // exit;
+  //   if(isset($_POST)) {
+  //     var_dump($_POST);
+  //     // exit;
+  //     // $_SESSION = $_POST;
+  //     // var_dump($_SESSION);
+  //     // exit;
+  //     header("Location: product_list.php");
+  //     exit();
+  //   }else{
+  //     header("Location: product_detail.php");
+  //   }
+  // }
 
 ?>
 
@@ -96,7 +97,7 @@ try{
       <td>
         <form action="" method="post">
         <input type="submit" name="cartin" value="カートに入れる">
-        <input type="hidden" name="id" value="<?=$row['id']?>">
+        <input type="hidden" name="p_id" value="<?=$row['p_id']?>">
         <input type="hidden" name="p_name" value="<?=$row['p_name']?>">
         <input type="hidden" name="image" value="<?=$row['image']?>">
         <input type="hidden" name="introduction" value="<?=$row['introduction']?>">

@@ -51,42 +51,9 @@ function validation_2() {
       $error[3] = "画像を選択してください";
       // echo $error[3];
     }
-    // if(empty($error)) {
-    //   $_SESSION = $_POST;
-    //   header("Location: product_confirm.php");
-    //   exit();
-    // }
   }
   return $error;
 }
-
-
-
-
-
-
-// function validation_3() {
-
-//   $error = array();
-
-//   if(!empty($_POST)){
-//     if(empty($_POST['email'])) {
-//       $error[1] = "メールアドレスを入力してください";
-//       echo $error[1];
-//     }
-//     if(empty($_POST['password'])) {
-//       $error[2] = "パスワードを入力してください";
-//       echo $error[2];
-//     }
-//     if(empty($error)) {
-//       $_SESSION = $_POST;
-//       header("Location: list.php");
-//       exit();
-//     }
-//   }
-//   return $error;
-// }
-
 
 
 

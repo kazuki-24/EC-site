@@ -2,8 +2,8 @@
 
 session_start();
 
-// var_dump($_POST);
-// require_once "function.php";
+var_dump($_POST);
+require_once "function.php";
 
 var_dump($_SESSION);
 

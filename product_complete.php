@@ -2,6 +2,11 @@
 
 session_start();
 
+var_dump($_SESSION);
+// exit;
+require_once "function.php";
+unlogined_session();
+
 if (!empty($_SESSION["p_name"])) {
   $productName = $_SESSION["p_name"];
 }
@@ -37,6 +42,5 @@ $stmt->execute();
     <h1>商品登録(完了)</h1>
     <p>登録が完了しました！</p><br>
     <input type="button" onclick="location.href='product_list.php';" value="商品一覧へ">
-    <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
   </body>
 </html>

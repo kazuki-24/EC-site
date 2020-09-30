@@ -1,11 +1,20 @@
 <?php
 session_start();
 
+// unset($_SESSION);
+
 // var_dump($_POST);
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
 require_once "function.php";
 unlogined_session();
+
+
+// unset($_SESSION['p_name']);
+// unset($_SESSION['introduction']);
+// unset($_SESSION['price']);
+// unset($_SESSION['image']);
+
 ?>
 
 <?php
@@ -36,7 +45,7 @@ try{
 
 	// //レコード件数取得
   $row_count = $row->rowCount();
-  var_dump($row);
+  // var_dump($row);
 
 
   }catch (PDOException $e){
@@ -55,11 +64,26 @@ try{
     $userName = $_SESSION['name'];
   }
 
+//  var_dump($_POST);
+
+  // var_dump($p_id);
+  // exit;
+
   if(isset($_POST["detail"])) {
-    // var_dump($_POST);
+    var_dump($_POST);
+
+    $_SESSION['p_name'] = $_POST['p_name'];
+    $_SESSION['introduction'] = $_POST['introduction'];
+    $_SESSION['price'] = $_POST['price'];
+    $_SESSION['image'] = $_POST['image'];
+
+    // var_dump($_POST['id']);
+    // exit;
+    // $_SESSION = $_POST;
+    // var_dump($_SESSION['p_id']);
     // exit;
     if(isset($_POST)) {
-      $_SESSION = $_POST;
+      // $_SESSION = $_POST;
       // var_dump($_SESSION);
       // exit;
       header("Location: product_detail.php");
@@ -104,7 +128,7 @@ try{
       <td>
         <form action="" method="post">
         <input type="submit" name="detail" value="詳細">
-        <input type="hidden" name="id" value="<?=$row['id']?>">
+        <!-- <input type="hidden" name="p_id" value="<?=$row['p_id']?>"> -->
         <input type="hidden" name="p_name" value="<?=$row['p_name']?>">
         <input type="hidden" name="image" value="<?=$row['image']?>">
         <input type="hidden" name="introduction" value="<?=$row['introduction']?>">

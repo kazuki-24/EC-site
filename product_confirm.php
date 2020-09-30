@@ -2,10 +2,10 @@
 
 session_start();
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
-// require_once "function.php";
-// unlogined_session();
+require_once "function.php";
+unlogined_session();
 
 if(!isset($_SESSION)) {
   header("Location: product_register.php");
@@ -17,13 +17,20 @@ if(!isset($_SESSION)) {
 //   $price = $_SESSION["price"];
 }
 
+
+if(isset($_POST['send'])) {
+  // unset($_SESSION['p_id']);
+  header("Location: product_complete.php");
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
 <html>
   <body align="center">
     <h1>商品登録(確認)</h1>
-    <form action="product_complete.php" method="post" align="center">
+    <form action="" method="post" align="center">
       <h3>商品名</h3>
       <?php echo (htmlspecialchars($_SESSION['p_name'], ENT_QUOTES, "UTF-8")); ?><br>
       <h3>紹介文</h3>
@@ -35,7 +42,6 @@ if(!isset($_SESSION)) {
       <br>
       <input type="button" onclick="history.back();" value="戻る">
       <input type="submit" name="send" value="送信">
-      <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
     </form>
   </body>
 </html>
