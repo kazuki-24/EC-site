@@ -1,50 +1,19 @@
 <?php
-
 session_start();
 
+// unset($_SESSION);
+
+// var_dump($_POST);
 // var_dump($_SESSION);
-// var_dump($_SESSION['id']);
 
-// $fname = file_upload( $_FILES, 'image' );
+require_once "function.php";
+unlogined_session();
 
-// $dsn = "mysql:host=localhost; dbname=xxx; charset=utf8";
-// $username = "xxx";
-// $password = "xxx";
-// $id = rand(1, 5);
-// try {
-//     $dbh = new PDO($dsn, $username, $password);
-// } catch (PDOException $e) {
-//     echo $e->getMessage();
-// }
-//     $sql = "SELECT * FROM images WHERE id = :id";
-//     $stmt = $dbh->prepare($sql);
-//     $stmt->bindValue(':id', $id);
-//     $stmt->execute();
-//     $image = $stmt->fetch();
 
-// $_SESSION["name"] = $_POST["name"]
-
-// require_once "function.php";
-// unlogined_session();
-
-// if (!empty($_SESSION["name"])) {
-//   $name = $_SESSION["name"];
-// }
-// if (!empty($_SESSION["email"])) {
-//   $email = $_SESSION["email"];
-// }
-// if (!empty($_SESSION["password"])) {
-//   $password = $_SESSION["password"];
-// }
-
-// if(!isset($_SESSION)) {
-//   header("Location: admin_register.php");
-//   exit();
-// }
-// $filemove = $_SESSION['image'];
-// $img = $filemove;
-// var_dump($filemove);
-// exit;
+// unset($_SESSION['p_name']);
+// unset($_SESSION['introduction']);
+// unset($_SESSION['price']);
+// unset($_SESSION['image']);
 
 ?>
 
@@ -76,7 +45,7 @@ try{
 
 	// //レコード件数取得
   $row_count = $row->rowCount();
-  var_dump($row);
+  // var_dump($row);
 
 
   }catch (PDOException $e){
@@ -95,8 +64,34 @@ try{
     $userName = $_SESSION['name'];
   }
 
-  // $dir_name = dir("img");
-  // $file_url = "";
+//  var_dump($_POST);
+
+  // var_dump($p_id);
+  // exit;
+
+  if(isset($_POST["detail"])) {
+    var_dump($_POST);
+
+    $_SESSION['p_name'] = $_POST['p_name'];
+    $_SESSION['introduction'] = $_POST['introduction'];
+    $_SESSION['price'] = $_POST['price'];
+    $_SESSION['image'] = $_POST['image'];
+
+    // var_dump($_POST['id']);
+    // exit;
+    // $_SESSION = $_POST;
+    // var_dump($_SESSION['p_id']);
+    // exit;
+    if(isset($_POST)) {
+      // $_SESSION = $_POST;
+      // var_dump($_SESSION);
+      // exit;
+      header("Location: product_detail.php");
+      exit();
+    }else{
+      header("Location: product_list.php");
+    }
+  }
 
 ?>
 
@@ -131,9 +126,13 @@ try{
       <th ><?=htmlspecialchars($row['introduction'])?></th>
       <th ><?=htmlspecialchars($row['price'])?></th>
       <td>
-        <form action="product_detail.php" method="post">
-        <input type="submit" value="詳細">
-        <input type="hidden" name="id" value="<?=$row['id']?>">
+        <form action="" method="post">
+        <input type="submit" name="detail" value="詳細">
+        <!-- <input type="hidden" name="p_id" value="<?=$row['p_id']?>"> -->
+        <input type="hidden" name="p_name" value="<?=$row['p_name']?>">
+        <input type="hidden" name="image" value="<?=$row['image']?>">
+        <input type="hidden" name="introduction" value="<?=$row['introduction']?>">
+        <input type="hidden" name="price" value="<?=$row['price']?>">
         </form>
       </td>
     </tr>
@@ -142,5 +141,11 @@ try{
     // $pdo = null;
   ?>
     </table>
+      <form action="" method="post">
+        <br><br>
+        <input type="submit" name="logout" value="ログアウト">
+        <input type="button" onclick="location.href='product_register.php';" value="商品登録画面へ">
+        <input type="button" onclick="location.href='user_list.php';" value="ユーザー一覧画面へ">
+      </form>
   </body>
 </html>

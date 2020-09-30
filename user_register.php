@@ -6,7 +6,15 @@ var_dump($_POST);
 require_once "function.php";
 $error = validation();
 var_dump($error);
+
 // // unlogined_session();
+
+// if(isset($_POST['sent'])) {
+//   header("Location: user_list.php");
+//   exit();
+// }
+
+
 
 // require_once "pdo_contact.php";
 // $db = connection_2();

@@ -2,9 +2,6 @@
 // var_dump($_POST);
 session_start();
 
-// require_once "function.php";
-// unlogined_session();
-
 var_dump($_SESSION);
 
 if(!isset($_SESSION)) {

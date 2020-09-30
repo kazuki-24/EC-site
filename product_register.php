@@ -1,8 +1,15 @@
 <?php
 session_start();
 
+var_dump($_SESSION);
+// var_dump($_SESSION['id']);
+// var_dump($_POST);
+// var_dump($_FILES);
+// exit;
+
 require_once "function.php";
 $error = validation_2();
+unlogined_session();
 
 if(isset($_POST["send"])) {
   // var_dump($_POST);
@@ -15,40 +22,21 @@ if(isset($_POST["send"])) {
   $filemove = '/Applications/XAMPP/xamppfiles/htdocs/EC-site/img/' . $_FILES['image']['name'];
   // var_dump($_FILES);exit;
   // var_dump($filemove);
+
   //move_uploaded_file関数を使って、アップロードした画像を指定した場所に移動させる
   move_uploaded_file($tempfile , $filemove );
 
-  // echo '<img src="img.php">';
-  // exit;
-
-  if(empty($error)) {
-    $_SESSION = $_POST;
+  // if(empty($error)) {
+  if(empty($error) && $_FILES['image']['name'] !== "") {
+    $_SESSION['p_name'] = $_POST['p_name'];
+    $_SESSION['introduction'] = $_POST['introduction'];
+    $_SESSION['price'] = $_POST['price'];
     $_SESSION['image'] = $_FILES['image']['name'];
     header("Location: product_confirm.php");
     exit();
   }
 }
 
-
-// var_dump($_POST);
-
-// require_once "function.php";
-// $error = validation_2();
-
-// var_dump($error);
-// // unlogined_session();
-
-// require_once "pdo_contact.php";
-// $db = connection_2();
-// if(isset($_POST["send"])) {
-//   // var_dump($_FILES);exit;
-//   $tempfile = $_FILES['image']['tmp_name'];
-//   //アップロード画像の移動先
-//   $filemove = '/Applications/XAMPP/xamppfiles/htdocs/EC-site/img/' . $_FILES['image']['name'];
-//   // var_dump($_FILES);exit;
-//   //move_uploaded_file関数を使って、アップロードした画像を指定した場所に移動させる
-//   move_uploaded_file($tempfile , $filemove );
-// }
 
 ?>
 
@@ -107,7 +95,7 @@ if(isset($_POST["send"])) {
   ?>
   </span>
   <h3>商品画像:</h3>
-    <input type="file" name="image" accept="image/*" value="<?php if(!empty($_POST)){echo(htmlspecialchars($_POST['image'],ENT_QUOTES));} ?>"><br>
+    <input type="file" name="image" accept="image/*" value="<?php if(!empty($_FILES)){echo(htmlspecialchars($_FILES['image'],ENT_QUOTES));} ?>"><br>
   <span style="color:red;">
   <?php
     if(!empty($error[3])) {
@@ -117,6 +105,7 @@ if(isset($_POST["send"])) {
   </span>
   <br>
   <br>
+  <input type="button" onclick="history.back();" value="戻る">
   <input type="submit" name="send" value="登録">
   </form>
   </body>
