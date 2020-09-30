@@ -2,6 +2,8 @@
 
 session_start();
 
+var_dump($_SESSION);
+
 // require_once "function.php";
 // unlogined_session();
 
@@ -33,6 +35,7 @@ if(!isset($_SESSION)) {
       <br>
       <input type="button" onclick="history.back();" value="戻る">
       <input type="submit" name="send" value="送信">
+      <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
     </form>
   </body>
 </html>

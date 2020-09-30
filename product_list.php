@@ -69,12 +69,6 @@ try{
     }
   }
 
-  if (isset($_POST['logout'])) {
-    unset($_SESSION['id']);
-    header("Location: login.php");
-    exit();
-  }
-
 ?>
 
 <!DOCTYPE html>

@@ -32,9 +32,11 @@ $stmt->execute();
 
 <!DOCTYPE html>
 <html>
-  <body align="center">
+  <!-- <body align="center"> -->
+  <form action="" method="post" align="center">
     <h1>商品登録(完了)</h1>
     <p>登録が完了しました！</p><br>
     <input type="button" onclick="location.href='product_list.php';" value="商品一覧へ">
+    <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
   </body>
 </html>
