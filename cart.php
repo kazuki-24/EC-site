@@ -20,14 +20,14 @@ unlogined_session();
 ?>
 
 <?php
-$dsn = "mysql:dbname=EC-site;localhost;charaset=utf8";
-$user = "root";
-$password = "";
+// $dsn = "mysql:dbname=EC-site;localhost;charaset=utf8";
+// $user = "root";
+// $password = "";
 
-// 変数の初期化
-$sql = null;
-$row = null;
-$db = null;
+// // 変数の初期化
+// $sql = null;
+// $row = null;
+// $db = null;
 
 
   if (isset($_SESSION['id'])) {//ログインしているとき

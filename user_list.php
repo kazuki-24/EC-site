@@ -48,6 +48,7 @@ try{
   // ログアウト機能
   if (isset($_POST['logout'])) {
     unset($_SESSION['id']);
+    unset($_SESSION['products']);
     header("Location: login.php");
     exit();
   }

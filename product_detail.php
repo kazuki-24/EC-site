@@ -3,8 +3,8 @@ product_detail
 <?php
 
 session_start();
-var_dump($_POST);
-// var_dump($_SESSION);
+// var_dump($_POST);
+var_dump($_SESSION);
 // exit;
 require_once "function.php";
 unlogined_session();
@@ -49,6 +49,7 @@ try{
   // ログアウト機能
   if (isset($_POST['logout'])) {
     unset($_SESSION['id']);
+    unset($_SESSION['products']);
     header("Location: login.php");
     exit();
   }
@@ -56,6 +57,7 @@ try{
 
   // $p_id = $_SESSION['id'];
   // $_SESSION['cart'][$p_id] = array('p_id'=>$_POST['p_id'],'number'=>$_POST['num']);
+
 
   // var_dump($_SESSION['cart']);
   // exit;
@@ -106,9 +108,9 @@ try{
                 'price' => $price,
                 'count' => $count
       ];
-      echo "OK";
+      echo "OK!";
     }else{
-      echo "NGです";
+      echo "NGです!";
       // header("Location: product_detail.php");
     }
   // }
