@@ -2,11 +2,9 @@ product_detail
 
 <?php
 
-var_dump($_POST);
-// exit;
 session_start();
 // var_dump($_POST);
-// var_dump($_SESSION);
+var_dump($_SESSION);
 // exit;
 require_once "function.php";
 unlogined_session();
@@ -51,27 +49,85 @@ try{
   // ログアウト機能
   if (isset($_POST['logout'])) {
     unset($_SESSION['id']);
+    unset($_SESSION['products']);
     header("Location: login.php");
     exit();
   }
+
+
+  // $p_id = $_SESSION['id'];
+  // $_SESSION['cart'][$p_id] = array('p_id'=>$_POST['p_id'],'number'=>$_POST['num']);
+
+
+  // var_dump($_SESSION['cart']);
+  // exit;
 
   // if (isset($_SESSION['id'])) {//ログインしているとき
   //   $userName = $_SESSION['name'];
   // }
 
+  $p_name = isset($_POST['p_name'])? htmlspecialchars($_POST['p_name'], ENT_QUOTES, 'utf-8') : '';
+  $image = isset($_POST['image'])? htmlspecialchars($_POST['image'], ENT_QUOTES, 'utf-8') : '';
+  $introduction = isset($_POST['introduction'])? htmlspecialchars($_POST['introduction'], ENT_QUOTES, 'utf-8') : '';
+  $price = isset($_POST['price'])? htmlspecialchars($_POST['price'], ENT_QUOTES, 'utf-8') : '';
+  $count = isset($_POST['count'])? htmlspecialchars($_POST['count'], ENT_QUOTES, 'utf-8') : '';
+
+  var_dump($p_name);
+  var_dump($image);
+  var_dump($introduction);
+  var_dump($price);
+  var_dump($count);
+  // exit;
+
   // if(isset($_POST["cartin"])) {
-  //   // var_dump($_POST);
-  //   // exit;
-  //   if(isset($_POST)) {
-  //     var_dump($_POST);
-  //     // exit;
-  //     // $_SESSION = $_POST;
-  //     // var_dump($_SESSION);
-  //     // exit;
-  //     header("Location: product_list.php");
-  //     exit();
-  //   }else{
-  //     header("Location: product_detail.php");
+    // var_dump($_POST);
+    // exit;
+    // if(isset($_POST)) {
+      // var_dump($_POST);
+      // exit;
+      // $_SESSION = $_POST;
+      // var_dump($_SESSION);
+      // exit;
+      // header("Location: product_detail.php");
+      // exit();
+
+    if(isset($_SESSION['products'])){
+      $products = $_SESSION['products'];
+      foreach($products as $key => $product){
+        if($key == $p_name){
+          $count = (int)$count + (int)$product['count'];
+        }
+      }
+    }
+
+
+    if($p_name != '' && $image != '' && $introduction != '' && $price != '' && $count != ''){
+      $_SESSION['products'][$p_name]=[
+                'image' => $image,
+                'introduction' => $introduction,
+                'price' => $price,
+                'count' => $count
+      ];
+      echo "OK!";
+    }else{
+      echo "NGです!";
+      // header("Location: product_detail.php");
+    }
+  // }
+
+  $products = isset($_SESSION['products'])? $_SESSION['products']:[];
+
+  var_dump($products);
+
+
+  // if(isset($products)){
+  //   foreach($products as $key => $product){
+  //     echo $key;      //商品名
+  //     echo "<br>";
+  //     echo $product['count'];  //商品の個数
+  //     echo "<br>";
+  //     echo $product['price']; //商品の金額
+  //     echo "<br>";
   //   }
   // }
 
@@ -83,7 +139,7 @@ try{
   <form action="" method="post"><br>
     <h1>商品詳細</h1><br><br>
     <table border="2" align="center" height="70">
-    <tr bgcolor="#049993">
+    <tr bgcolor="greenyellow">
       <th width="170" >商品名</th>
       <th width="200">画像</th>
       <th width="280">紹介文</th>
@@ -95,15 +151,26 @@ try{
       <th ><?= $_SESSION['introduction'] ?></th>
       <th ><?= $_SESSION['price'] ?></th>
       <td>
-        <form action="" method="post">
-        <input type="submit" name="cartin" value="カートに入れる">
-        <input type="hidden" name="p_id" value="<?=$row['p_id']?>">
-        <input type="hidden" name="p_name" value="<?=$row['p_name']?>">
-        <input type="hidden" name="image" value="<?=$row['image']?>">
-        <input type="hidden" name="introduction" value="<?=$row['introduction']?>">
-        <input type="hidden" name="price" value="<?=$row['price']?>">
-        <input type="button" onclick="history.back();" value="戻る">
-        </form>
+      <form action="" method="POST" >
+      <!-- <input type="hidden" name="p_name" value="バナナ">
+        <input type="hidden" name="price" value="500">
+        <input type="text" value="1" name="count"> -->
+        <input type="hidden" name="p_name" value="<?=$_SESSION['p_name']?>">
+        <input type="hidden" name="image" value="<?=$_SESSION['image']?>">
+        <input type="hidden" name="introduction" value="<?=$_SESSION['introduction']?>">
+        <input type="hidden" name="price" value="<?=$_SESSION['price']?>">
+        <input type="text" name="count" value="">
+        <button type="submit" class="btn-sm btn-blue">カートに入れる</button>
+      </form>
+      <input type="button" onclick="location.href='product_list.php';" value="商品一覧へ">
+        <!-- <form action="" method="post"> -->
+          <!-- <input type="hidden" name="p_id" value="<?=$row['p_id']?>">
+          <input type="hidden" name="p_name" value="<?=$row['p_name']?>">
+          <input type="hidden" name="image" value="<?=$row['image']?>">
+          <input type="hidden" name="introduction" value="<?=$row['introduction']?>">
+          <input type="hidden" name="price" value="<?=$row['price']?>"> -->
+          <!-- <input type="submit" name="cartin" value="カートに入れる" width="210"> -->
+        <!-- </form> -->
       </td>
     </tr>
     </table>
