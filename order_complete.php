@@ -101,6 +101,8 @@ session_start();
     // コミット(処理成功)
     $db->commit();
 
+    unset($_SESSION['products']);
+
   } catch(PDOException $e) {
     // ロールバック(処理失敗:一連の処理を取り消す)
     $db->rollBack();
