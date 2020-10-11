@@ -24,11 +24,17 @@ if (isset($_POST['login'])) {
     $stmt = $db->prepare($sql);
     $stmt->execute(array($email,$password));
     $result = $stmt->fetchAll();
-    // var_dump($result);
+    var_dump($result);
     // var_dump($result[0]['id']);
+    // var_dump($result[0]['name']);
+    // var_dump($result[0]['address']);
     // exit;
     $_SESSION['id'] = $result[0]['id'];
     $_SESSION['name'] = $result[0]['name'];
+    $_SESSION['address'] = $result[0]['address'];
+    var_dump($_SESSION['address']);
+    // exit;
+
     // 以下DB認証
     // emailとpasswordどちらも入力されている場合
     if(!empty($_POST["email"]) && !empty($_POST["password"])) {

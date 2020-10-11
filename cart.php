@@ -1,6 +1,7 @@
-【カート機能】
+<!-- 【カート機能】 -->
 
 <?php
+// var_dump($_POST['confirm']);
 $delete_p_name = isset($_POST['delete_p_name'])? htmlspecialchars($_POST['delete_p_name'], ENT_QUOTES, 'utf-8') : '';
 
 session_start();
@@ -59,7 +60,18 @@ unlogined_session();
   }
 
 
-  //合計の初期値を0とする
+  if(isset($_POST['confirm'])) {
+    var_dump($_POST['confirm']);
+    // var_dump($_POST['$total']);
+    echo "OK";
+    // exit;
+    header("Location: order_confirm.php");
+  }
+
+
+  //合計[個数]の初期値を0とする
+  $total_count = 0;
+  //合計[金額]の初期値を0とする
   $total = 0;
   $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 
@@ -87,10 +99,17 @@ unlogined_session();
     </tr>
     <?php
       foreach($products as $p_name => $product):
+
+              //各商品の個数を取得
+              $count = $product['count'];
+              //各商品の個数の合計を$total_countに足していく
+              $total_count += $count;
+
               //各商品の小計を取得
               $subtotal = $product['price']*$product['count'];
               //各商品の小計を$totalに足していく
               $total += $subtotal;
+
     ?>
     <tr height="50">
     <td align="center"><?php echo $p_name; ?></td>
@@ -114,11 +133,15 @@ unlogined_session();
     ?>
     </table>
     <h3>カート全体 合計金額</h3>
-    <h4>￥ <?php echo $total; ?></h4>
+    ￥ <?php echo $total; ?>
+     (商品合計 <?php echo $total_count; ?> 個)
       <form action="" method="post">
         <br><br>
         <input type="button" onclick="history.back();" value="戻る">
-        <input type="button" onclick="location.href='order_confirm.php';" value="購入手続きに進む">
+        <!-- カートが空の場合「購入手続きへ」ボタンを押せないように設定 -->
+        <input type="submit" <?php if(empty($products)) echo 'disabled="disabled"'; ?> name="confirm" value="購入手続きへ">
+        <!-- <button type="button" onclick="location.href='order_confirm.php'" <?php if(empty($products)) echo 'disabled="disabled"'; ?>>購入手続きへ</button> -->
+        <input type="hidden" name="total" value="<?php echo $total; ?>">
       </form>
   </body>
 </html>

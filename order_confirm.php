@@ -1,4 +1,4 @@
-【注文確認画面】
+<!-- 【注文確認画面】 -->
 
 <?php
 $delete_p_name = isset($_POST['delete_p_name'])? htmlspecialchars($_POST['delete_p_name'], ENT_QUOTES, 'utf-8') : '';
@@ -32,11 +32,14 @@ unlogined_session();
 
   if (isset($_SESSION['id'])) {//ログインしているとき
     $userName = $_SESSION['name'];
+    $address = $_SESSION['address'];
+    // var_dump($_SESSION['address']);
+    // var_dump($address);
   }
 
 //  var_dump($_POST);
 
-  // var_dump($p_id);
+  // var_dump($address);
   // exit;
 
   if(isset($_POST["detail"])) {
@@ -58,8 +61,25 @@ unlogined_session();
     }
   }
 
+  if(isset($_POST['determine'])) {
+    var_dump($_POST['determine']);
+    var_dump($_POST['total']);
+    var_dump($_POST['count']);
+    var_dump($_POST['total_count']);
+    echo "OK";
+    // exit;
 
-  //合計の初期値を0とする
+    $_SESSION['determine'] = $_POST['determine'];
+    $_SESSION['total'] = $_POST['total'];
+    $_SESSION['count'] = $_POST['count'];
+    $_SESSION['total_count'] = $_POST['total_count'];
+    // exit;
+    header("Location: order_complete.php");
+  }
+
+  //合計[個数]の初期値を0とする
+  $total_count = 0;
+  //合計[金額]の初期値を0とする
   $total = 0;
   $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 
@@ -73,7 +93,8 @@ unlogined_session();
   <h3>ユーザー名</h3>
   <?php echo $userName; ?> さん
   <!-- <form action="" method="post"><br> -->
-    <h1>注文確認画面</h1>
+    <h1>注文確認画面</h1><br>
+    <h3>以下の内容で注文を確定しますか？</h3>
     <table border="2" align="center" height="70">
     <!-- レコード件数：<?php echo $row_count; ?><br> -->
     <tr bgcolor="#FF77FF">
@@ -83,10 +104,15 @@ unlogined_session();
       <th width="170">価格</th>
       <th width="170">数量</th>
       <th width="170">小計</th>
-      <th width="70">操作</th>
     </tr>
     <?php
       foreach($products as $p_name => $product):
+
+              //各商品の個数を取得
+              $count = $product['count'];
+              //各商品の個数の合計を$total_countに足していく
+              $total_count += $count;
+
               //各商品の小計を取得
               $subtotal = $product['price']*$product['count'];
               //各商品の小計を$totalに足していく
@@ -99,12 +125,6 @@ unlogined_session();
     <td align="center">¥ <?php echo $product['price']; ?></td>
     <td align="center"><?php echo $product['count']; ?></td>
     <td align="center">¥ <?php echo $product['price']*$product['count']; ?></td>
-    <td>
-      <form action="" method="post" align=center>
-      <input type="hidden" name="delete_p_name" value="<?php echo $p_name; ?>">
-      <button type="submit" >削除</button>
-      </form>
-    </td>
     <br>
         </form>
       </td>
@@ -115,16 +135,27 @@ unlogined_session();
     </table>
     <h3>カート全体 合計金額</h3>
     ￥ <?php echo $total; ?>
+     (商品合計 <?php echo $total_count; ?> 個)
+    <?php
+    // $SESSION = $total;
+
+    // var_dump($_SESSION);
+    // var_dump($total);
+    // var_dump($total);
+    // exit;
+    ?>
     <h3>住所（配送先）</h3>
-    <!-- <?php echo $total; ?> -->
-    <?php echo "東京都中央区日本橋1-1"; ?>
+    <?php echo $address; ?>
     <h3>支払い方法</h3>
-    <!-- <?php echo $total; ?> -->
     <?php echo "銀行振込"; ?>
       <form action="" method="post">
         <br><br>
         <input type="button" onclick="history.back();" value="戻る">
-        <input type="button" onclick="location.href='order_complete.php';" value="確定する">
+        <input type="submit" name="determine" value="確定する">
+        <!-- <input type="button" onclick="location.href='order_complete.php';" value="確定する"> -->
+        <input type="hidden" name="total" value=<?php echo $total; ?>>
+        <input type="hidden" name="count" value=<?php echo $product['count']; ?>>
+        <input type="hidden" name="total_count" value=<?php echo $total_count; ?>>
       </form>
   </body>
 </html>
