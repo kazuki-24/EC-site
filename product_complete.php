@@ -7,6 +7,11 @@ var_dump($_SESSION);
 require_once "function.php";
 unlogined_session();
 
+if (!empty($_SESSION["id"])) {
+  $p_id = $_SESSION["id"];
+  // var_dump($product_id);
+  // exit;
+}
 if (!empty($_SESSION["p_name"])) {
   $productName = $_SESSION["p_name"];
 }

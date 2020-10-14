@@ -1,10 +1,9 @@
-product_detail
-
 <?php
 
 session_start();
-// var_dump($_POST);
-var_dump($_SESSION);
+// var_dump($_POST['p_id']);
+// exit;
+var_dump($_SESSION['p_id']);
 // exit;
 require_once "function.php";
 unlogined_session();
@@ -65,18 +64,19 @@ try{
   // if (isset($_SESSION['id'])) {//ログインしているとき
   //   $userName = $_SESSION['name'];
   // }
-
+  $product_id = isset($_POST['p_id'])? htmlspecialchars($_POST['p_id'], ENT_QUOTES, 'utf-8') : '';
   $p_name = isset($_POST['p_name'])? htmlspecialchars($_POST['p_name'], ENT_QUOTES, 'utf-8') : '';
   $image = isset($_POST['image'])? htmlspecialchars($_POST['image'], ENT_QUOTES, 'utf-8') : '';
   $introduction = isset($_POST['introduction'])? htmlspecialchars($_POST['introduction'], ENT_QUOTES, 'utf-8') : '';
   $price = isset($_POST['price'])? htmlspecialchars($_POST['price'], ENT_QUOTES, 'utf-8') : '';
   $count = isset($_POST['count'])? htmlspecialchars($_POST['count'], ENT_QUOTES, 'utf-8') : '';
 
-  var_dump($p_name);
-  var_dump($image);
-  var_dump($introduction);
-  var_dump($price);
-  var_dump($count);
+  // var_dump($product_id);
+  // var_dump($p_name);
+  // var_dump($image);
+  // var_dump($introduction);
+  // var_dump($price);
+  // var_dump($count);
   // exit;
 
   // if(isset($_POST["cartin"])) {
@@ -100,24 +100,26 @@ try{
       }
     }
 
-
+    // カートの状態を確認（入っているか入っていないか）
     if($p_name != '' && $image != '' && $introduction != '' && $price != '' && $count != ''){
       $_SESSION['products'][$p_name]=[
+                'product_id' => $product_id,
                 'image' => $image,
                 'introduction' => $introduction,
                 'price' => $price,
                 'count' => $count
       ];
-      echo "OK!";
+      echo "カートに商品が入りました！";
     }else{
-      echo "NGです!";
+      echo "まだカートに商品が入っていません";
       // header("Location: product_detail.php");
     }
   // }
 
   $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 
-  var_dump($products);
+  // var_dump($products);
+  // exit;
 
 
   // if(isset($products)){
@@ -155,6 +157,7 @@ try{
       <!-- <input type="hidden" name="p_name" value="バナナ">
         <input type="hidden" name="price" value="500">
         <input type="text" value="1" name="count"> -->
+        <input type="hidden" name="p_id" value="<?=$_SESSION['p_id']?>">
         <input type="hidden" name="p_name" value="<?=$_SESSION['p_name']?>">
         <input type="hidden" name="image" value="<?=$_SESSION['image']?>">
         <input type="hidden" name="introduction" value="<?=$_SESSION['introduction']?>">

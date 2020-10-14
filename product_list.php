@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+// phpinfo();
+
 // unset($_SESSION);
 
 // var_dump($_POST);
@@ -63,6 +65,7 @@ try{
 
   if (isset($_SESSION['id'])) {//ログインしているとき
     $userName = $_SESSION['name'];
+    $address = $_SESSION['address'];
   }
 
 //  var_dump($_POST);
@@ -71,17 +74,20 @@ try{
   // exit;
 
   if(isset($_POST["detail"])) {
-    var_dump($_POST);
-
+    // var_dump($_POST);
+    // var_dump($_POST['p_id']);
+    // exit;
+    // $p_id = $_POST['p_id'];
+    // var_dump($p_id);
+    // exit;
+    $_SESSION['p_id'] = $_POST['p_id'];
     $_SESSION['p_name'] = $_POST['p_name'];
     $_SESSION['introduction'] = $_POST['introduction'];
     $_SESSION['price'] = $_POST['price'];
     $_SESSION['image'] = $_POST['image'];
 
-    // var_dump($_POST['id']);
-    // exit;
     // $_SESSION = $_POST;
-    // var_dump($_SESSION['p_id']);
+    var_dump($_SESSION['p_id']);
     // exit;
     if(isset($_POST)) {
       // $_SESSION = $_POST;
@@ -113,6 +119,7 @@ try{
 
     レコード件数：<?php echo $row_count; ?><br>
     <tr bgcolor="yellow">
+      <th width="170" >ID</th>
       <th width="170" >商品名</th>
       <th width="200">画像</th>
       <th width="280">紹介文</th>
@@ -122,6 +129,7 @@ try{
     while($row = $stmh->fetch(PDO::FETCH_ASSOC)){
     ?>
     <tr height="50">
+      <th ><?=htmlspecialchars($row['id'])?></th>
       <th ><?=htmlspecialchars($row['p_name'])?></th>
       <th ><img src="img/<?php echo $row['image']; ?>" width="100" height="100"></th>
       <th ><?=htmlspecialchars($row['introduction'])?></th>
@@ -129,7 +137,7 @@ try{
       <td>
         <form action="" method="post">
         <input type="submit" name="detail" value="詳細">
-        <!-- <input type="hidden" name="p_id" value="<?=$row['p_id']?>"> -->
+        <input type="hidden" name="p_id" value="<?=$row['id']?>">
         <input type="hidden" name="p_name" value="<?=$row['p_name']?>">
         <input type="hidden" name="image" value="<?=$row['image']?>">
         <input type="hidden" name="introduction" value="<?=$row['introduction']?>">
