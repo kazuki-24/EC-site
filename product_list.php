@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+// phpinfo();
+
 // unset($_SESSION);
 
 // var_dump($_POST);

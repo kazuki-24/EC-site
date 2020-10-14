@@ -83,6 +83,57 @@ unlogined_session();
   $total = 0;
   $products = isset($_SESSION['products'])? $_SESSION['products']:[];
 
+
+  mb_language("Japanese");
+  mb_internal_encoding("UTF-8");
+
+  //ソースは全部読み込ませる
+  //パスは自分がPHPMailerをインストールした場所で
+  //PHPMailerの各種ファイルを読み込む(mail_test.phpから見た相対パスを記載)
+  require './PHPMailer-master/src/PHPMailer.php';
+  require './PHPMailer-master/src/SMTP.php';
+  require './PHPMailer-master/src/POP3.php';
+  require './PHPMailer-master/src/Exception.php';
+  require './PHPMailer-master/src/OAuth.php';
+  require './PHPMailer-master/language/phpMailer.lang-ja.php';
+
+  // PHPMailerの使用宣言
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
+
+  // SMTPの設定
+  $mailer = new PHPMailer();//インスタンス生成
+  $mailer->IsSMTP();//SMTPを生成
+  $mailer->Host = 'smtp.gmail.com';//Gmailを使う場合の設定
+  $mailer->Charset = 'utf-8';
+  $mailer->SMTPAuth = TRUE;
+  $mailer->Username = 'skill.e.k24@gmail.com';//Gmailのユーザー名
+  $mailer->Password = 'se.0901.st';//Gmailのパスワード
+  $mailer->IsHTML(false);
+  $mailer->SMTPSecure = 'tls';//SSLも使用可
+  $mailer->Port = 587;//tlsは587でOK
+  $mailer->SMTPDebug = 2;//2は詳細デバッグ1は簡易デバッグ本番はコメントアウト
+
+  //メール本体(メール内容の記述)
+  $to = "sample@sample.co.jp";//送信先
+  $mailer->From ='skill.e.k24@gmail.com';//差出人の設定
+  $mailer->SetFrom('skill.e.k24@gmail.com');
+  $mailer->FromName = mb_convert_encoding("-shop","UTF-8","AUTO");//差し出し人名
+  $mailer->Subject  = mb_convert_encoding("Order completed","UTF-8","AUTO");//メールのタイトル
+  $mailer->Body     = mb_convert_encoding("ご注文が完了しました。","UTF-8","AUTO");//メール本文
+  $mailer->AddAddress($to);//To宛先
+
+  if( !empty($_POST['determine']) ) {
+
+  //送信する(メール送信メソッド実行)
+  if($mailer->Send()){
+    echo "送信に成功しました！";
+  }else{
+    echo "送信に失敗しました" . $mailer->ErrorInfo;
+  }
+
+  }
+
 ?>
 
 <!DOCTYPE html>
